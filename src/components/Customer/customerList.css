@@ -1,0 +1,21 @@
+.aBtn
+{
+    padding:5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.aBtn button 
+{
+    border:none;
+    background-color: transparent;
+    font-size: 1.1rem;
+}
+#trash
+{
+    color:red;
+}
+.aBtn button:hover 
+{
+    cursor: pointer;
+}
