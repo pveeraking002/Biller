@@ -1,0 +1,195 @@
+:root
+{
+    --header-bg-color:#edeafb;
+    --button-bg-color:#403f3d;
+    --pagination-bgcolor : #130b3f;
+    --bg-color:#edeafb;
+    --add-button:#f4d03f;
+    --print-button:#52be80;
+    --delete-button:#e74c3c;
+    --add-hover-button:#b7950b;
+    --delete-hover-button:#a93226;
+    --print-hover-button:#196f3d;
+     --bgcolor : #6264A7;
+}
+.sales .headerPart
+{
+    padding:10px;
+    margin-bottom:10px;
+}
+.sales .headerPart .HeaderName
+{
+    font-size: 1.5rem;
+}
+.sales .pagination
+{
+    padding:10px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/*window*/
+
+.window 
+{
+    width:100%;
+    height:80vh;
+    position: relative;
+    background-color: var(--bg-color);
+}
+.window .wcontainer 
+{
+    padding:10px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;   
+}
+.window .wcontainer .entry
+{
+    margin:0 auto;
+    width:60%;
+    border-bottom:1px solid silver;
+}
+
+.window .wcontainer .entry input,
+.window .wcontainer .entry select
+{
+    width:200px;
+    height:40px;
+    margin:10px;
+    padding:10px;
+    border:none;
+    background-color: #fff;
+}
+.window .wcontainer .entry h4
+{
+    width:200px;
+    height:40px;
+    margin:10px;
+    padding:10px;
+    border:none;
+}
+.window .wcontainer .entry .btnGroup
+{
+    margin-top: 1rem;
+    margin-bottom:2rem;
+    
+}
+.window .wcontainer .entry .btnGroup button,
+.window .wcontainer .entry button
+{
+    margin:0 20px;
+    padding:10px 50px;
+    border:none;
+    font-size:1.2rem;
+}
+.window .wcontainer .entry button
+{
+    background-color: #f5f5f5;
+}
+.window .wcontainer .entry button:hover 
+{
+    background-color: #403f3d;
+    color:#fff;
+}
+.window .wcontainer .entry .btnGroup button:nth-child(1)
+{
+    background-color:var(--add-button);
+    color:#fff;
+}
+.window .wcontainer .entry .btnGroup button:nth-child(2)
+{
+    background-color:var(--delete-button);
+    color:#fff;
+}
+.window .wcontainer .entry .btnGroup button:nth-child(3)
+{
+    background-color:var(--print-button);
+    color:#fff;
+}
+.window .wcontainer .entry .btnGroup button:nth-child(1):hover 
+{
+    background-color: var(--add-hover-button);
+    color:var(--add-button);
+}
+.window .wcontainer .entry .btnGroup button:nth-child(2):hover 
+{
+    background-color: var(--delete-hover-button);
+    color:var(--delete-button);
+}
+.window .wcontainer .entry .btnGroup button:nth-child(3):hover 
+{
+    background-color: var(--print-hover-button);
+    color:var(--print-button);
+}
+
+.window .wcontainer .entry .plist
+{
+    padding:10px;
+}
+
+/* Box Ara */
+
+.window .wcontainer .box
+{
+    margin:0auto;
+    width:40%;
+    height:78vh;
+    border-left:1px solid silver;
+
+}
+.window .wcontainer .box .plist 
+{
+    padding:10px;
+    position: relative;
+}
+.window .wcontainer .box .plist .lst 
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom:10px;
+    background-color: var(--bgcolor);
+    color:#fff;
+    padding:20px;
+}
+
+.window .wcontainer .box .plist .cart 
+{
+    margin:0 auto;
+    width:100%;
+    height:100%;
+}
+.window .wcontainer .box .plist .cart table 
+{
+    margin:0 auto;
+    padding:0;
+    width:100%;
+    height:100%;
+}
+.window .wcontainer .box .plist .cart table th,
+.window .wcontainer .box .plist .cart table td
+{
+    padding:8px;
+    text-align: left;
+    font-size: .7rem;
+    border:1px solid silver;
+}
+.window .wcontainer .box .plist .cart table th
+{
+    background-color:var(--bgcolor);
+    color:var(--bg-color);
+}
+.window .wcontainer .box .plist .tot
+{
+    width:100%;
+    display: flex;
+    flex-direction:column;
+    justify-content: flex-end;
+}
+.window .wcontainer .box .plist .tot table td 
+{
+    background-color: var(--bgcolor);
+    color:var(--header-bg-color);
+    font-weight:bold;
+}

@@ -1,0 +1,144 @@
+:root
+{
+    --bgcolor : #6264A7;
+}
+
+a{
+    text-decoration: none;
+}
+li{
+    list-style: none;
+}
+.mainArea
+{
+    margin: auto;
+    width: 100%;
+    height:100vh;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+}
+.mainArea .navi
+{
+    width:100%;
+    height:100%;
+    width:70px;
+    display:flex;
+    flex-direction:column;
+    background-color: var(--bgcolor);
+    padding-top: 2rem;
+}
+.mainArea .navi header
+{
+    width:100%;
+    margin: 0 auto 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.mainArea .navi header .brand
+{
+    font-size:1.8rem;
+    margin: 0 auto;
+}
+.mainArea .navi header .hContainer ul
+{
+    margin-top:5rem;
+    width: 100%;
+    height:100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.mainArea .navi header .hContainer ul li
+{   
+    width:100%;
+    padding:10px;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.mainArea .navi header .hContainer ul li:hover,
+.mainArea .navi header .hContainer ul li:hover > a i
+{
+    background-color:#fff;
+    color:var(--bgcolor);
+    transition: .5s;
+    opacity:.5;
+}
+.mainArea .navi header .hContainer ul a i 
+{
+    padding:0;
+    font-size: 1.8rem;
+    color:#fff;
+}
+.mainArea .navi header .hContainer ul li.active,
+.mainArea .navi header .hContainer ul li.active > a i
+{
+    background-color:#fff;
+    color:var(--bgcolor);
+
+}
+
+
+/*Title Cared*/
+
+.mainArea .content 
+{
+    background-color:#fff;
+    width:100%;
+    height:100vh;
+
+}
+.mainArea .content .titleCard
+{
+    width:100%;
+    height:60px;
+    background-color:var(--bgcolor);
+}
+.mainArea .content .titleCard .tContainer
+{
+    width:100%;
+    height:100%;
+    max-width:80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.mainArea .content .titleCard .tContainer .username
+{
+    font-size: 1.1rem;
+    color:#fff;
+    font-weight:400;
+}
+
+/*Entry Area*/
+
+.mainArea .content .entry
+{
+    width: 100%;
+    height:100%;
+    position: relative;
+}
+.mainArea .content .entry .eContainer
+{
+    width:100%;
+    max-width:99%;
+    margin:2px auto;
+    height:100%;
+    max-height:93%;
+    padding:1rem;
+
+}
+.mainArea .content .eContainer .action
+{
+    background-color: #fff;
+    width:100%;
+    height:98%;
+    max-height:98%;
+    position: relative;
+    padding:10px;
+}
