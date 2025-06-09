@@ -1,10 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import '../Sales/sales.css';
 import SalesList from "./saleList";
 
 const Sales = ()=>{
     const [grossTotal,setGrossTotal] = useState(0);
+    const [dis,setDiscount]= useState(0);
+    const [netTotal,setNetTotal] = useState(0);
+    const [igst,setIgest] = useState(0);
     const [pList,setPlist] = useState([]);
+
+    useEffect(()=>{
+        let newTotal = 0;
+        let discount = 0;
+        pList.forEach((item)=>{
+            newTotal += parseFloat(item.total);
+            discount += parseFloat(item.dis);
+        });
+        let igst = (newTotal*2.5)/100
+        setGrossTotal(newTotal.toFixed(2));
+        setDiscount(discount);
+        setIgest(igst.toFixed(2));
+        setNetTotal((newTotal+igst+igst).toFixed(2));
+    },[pList]);
+
     const [sForm,setsForm] = useState({
         serial:'',
         product:'',
@@ -20,37 +38,27 @@ const Sales = ()=>{
             return (ctot).toFixed(2);
         }
         else{
-            return  (ctot - ctot*dis/100).toFixed(2);
-
+            let discount = (parseFloat(ctot)*parseFloat(dis))/100;
+            return (ctot - discount).toFixed(2);
         }
-        
-    }
+            
 
- 
-    
+    }
     const addItem = ()=>{   
         if(!setsForm.serial && !setsForm.qty && !setsForm.price)
         {
             setsForm({...sForm,total:total})
             setPlist(pList=>[...pList,sForm]);
-            
-            grossTotalFunc()
-        }
-       
-    };  
-    const grossTotalFunc = ()=>{
-
-        pList.map((item)=>{  
-               setGrossTotal(item.price + grossTotal);
-            });
         
-            console.log(grossTotal);
-    }
+        }
+    };  
+
+
     const handleChange = (event)=>{
         const { name, value } = event.target;
         setsForm({...sForm,[name]:value});
     };
-
+  
     const total = calculateTotal(sForm.dis,sForm.qty,sForm.price);
     return(<>
         <div className="sales">
@@ -132,23 +140,23 @@ const Sales = ()=>{
                                             </tr>
                                              <tr>
                                                 <td>Discount</td>
-                                                <td>10%</td>
-                                                <td>00:00</td>
+                                                <td>{dis}</td>
+                                                <td>00.00</td>
                                             </tr>
                                              <tr>
                                                 <td>GGST %</td>
                                                 <td>2.5%</td>
-                                                <td>00:00</td>
+                                                <td>{igst}</td>
                                             </tr>
                                              <tr>
                                                 <td>IGST %</td>
                                                 <td>2.5%</td>
-                                                <td>00:00</td>
+                                                <td>{igst}</td>
                                             </tr>
                                              <tr>
-                                                <td>Gross Total</td>
+                                                <td>Net Total</td>
                                                 <td></td>
-                                                <td>00:00</td>
+                                                <td>{netTotal}</td>
                                             </tr>
                                         </table>
                                     </div>
