@@ -1,6 +1,6 @@
 import React from "react";
 import '../Header/header.css'; 
-import Customer from "../Customer/customer";
+import { Customer } from "../Customer/customer";
 import Sales from "../Sales/sales";
 import { Routes, Route, Link } from "react-router-dom"
 import { useLocation } from "react-router-dom";
