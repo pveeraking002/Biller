@@ -1,17 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import '../Customer/customer.css';
 import CustomerList from "./CustomerList";
-
+const userList = [
+        {"customerName":"veera", "mobile":"9688994268", "email":"p.veeraprince002@hotmail.com","address":"testarea","company":"nil","landMark":"co-oprative"},
+        {"customerName":"Tester", "mobile":"9688994265", "email":"p.veeraprince002@hotmail.com","address":"testarea","company":"nil","landMark":"co-oprative"}
+]
 const Customer = ()=>{
-    const userList = [
-            {"customerName":"veera", "mobile":"9688994268", "email":"p.veeraprince002@hotmail.com","address":"testarea","company":"nil","landMark":"co-oprative"},
-            {"customerName":"Tester", "mobile":"9688994268", "email":"p.veeraprince002@hotmail.com","address":"testarea","company":"nil","landMark":"co-oprative"},
-            {"customerName":"veera", "mobile":"9688994268", "email":"p.veeraprince002@hotmail.com","address":"testarea","company":"nil","landMark":"co-oprative"},
-            {"customerName":"Tester", "mobile":"9688994268", "email":"p.veeraprince002@hotmail.com","address":"testarea","company":"nil","landMark":"co-oprative"},
-            {"customerName":"veera", "mobile":"9688994268", "email":"p.veeraprince002@hotmail.com","address":"testarea","company":"nil","landMark":"co-oprative"},
-            {"customerName":"Tester", "mobile":"9688994268", "email":"p.veeraprince002@hotmail.com","address":"testarea","company":"nil","landMark":"co-oprative"}
-    ]
-
     return(<>
         <div className="customer">
             <div className="headerPart">
@@ -57,4 +51,10 @@ const Customer = ()=>{
     </>);
 }
 
-export default Customer
+const getCustomerDetails=(data)=>
+{
+    const cdata = userList.filter((item)=> item.mobile === data);
+    return cdata;
+}
+
+export { Customer, getCustomerDetails }

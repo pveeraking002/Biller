@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import '../Sales/sales.css';
 import SalesList from "./saleList";
-import { PDFViewer } from "@react-pdf/renderer";
-import Invoice from "../Invoice/invoice";
+import { getCustomerDetails }  from "../Customer/customer";
+
+
 const Sales = ()=>{
     const [grossTotal,setGrossTotal] = useState(0);
     const [dis,setDiscount]= useState(0);
     const [netTotal,setNetTotal] = useState(0);
     const [igst,setIgest] = useState(0);
     const [pList,setPlist] = useState([]);
+    const [custDetail,setCusDetail] = useState(null);
 
     useEffect(()=>{ 
         let newTotal = 0;
@@ -56,15 +58,30 @@ const Sales = ()=>{
     };  
 
     const removeItems = (data)=>{
-        console.log("From remove function",data);
+        //console.log("From remove function",data);
         const newLst = pList.filter((item)=>parseInt(item.serial) !== parseInt(data));
         setPlist(newLst);
     }
 
     const handleChange = (event)=>{
         const { name, value } = event.target;
-        setsForm({...sForm,[name]:value});
+        setsForm({...sForm,[name]:value});  
     };
+
+    const customerDetails = (e)=>{
+        e.preventDefault();
+        const data = getCustomerDetails(e.target.value);
+        if (data.length > 0)    
+        {
+           setCusDetail(data[0]);
+           console.log(custDetail);
+        }
+        
+    }   
+
+    const removeCustomerDetail = (e)=>{
+        setCusDetail(null);
+    }
   
     const total = calculateTotal(sForm.dis,sForm.qty,sForm.price);
     return(<>
@@ -76,12 +93,13 @@ const Sales = ()=>{
                 <div className="wcontainer">
                    <div className="entry">
                         <h4>Customer Information</h4>
-                        <input type="text" name="cusName" id="cusName" placeholder="Customer Name" />
-                        <input type="text" name="mobile" id="mobile" placeholder="Mobile"/>
-                        <input type="text" name="email" id="email" placeholder="Email"/>
-                        <input type="text" name="address" id="address" placeholder="Address"/>
-                        <input type="text" name="company" id="company" placeholder="Company"/>
+                        <input type="text" name="cusName" id="cusName" value={custDetail!== null ? custDetail.customerName:''}placeholder="Customer Name" />
+                        <input type="text" name="mobile" id="mobile" onInput={customerDetails} placeholder="Mobile"/>
+                        <input type="text" name="email" value={custDetail!== null ? custDetail.email:''} id="email" placeholder="Email"/>
+                        <input type="text" name="address" id="address" value={custDetail!== null ? custDetail.address:''} placeholder="Address"/>
+                        <input type="text" name="company" id="company"  value={custDetail!== null ? custDetail.company:''} placeholder="Company"/>
                         <button><i class='fa fa-search'></i></button>
+                        <button onClick={()=>removeCustomerDetail()}><i class='fa fa-trash'></i></button>
                         <br/>
 
                         <h4>Product Information</h4>
