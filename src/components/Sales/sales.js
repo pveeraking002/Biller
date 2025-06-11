@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import '../Sales/sales.css';
 import SalesList from "./saleList";
-
+import { PDFViewer } from "@react-pdf/renderer";
+import Invoice from "../Invoice/invoice";
 const Sales = ()=>{
     const [grossTotal,setGrossTotal] = useState(0);
     const [dis,setDiscount]= useState(0);
@@ -9,7 +10,7 @@ const Sales = ()=>{
     const [igst,setIgest] = useState(0);
     const [pList,setPlist] = useState([]);
 
-    useEffect(()=>{
+    useEffect(()=>{ 
         let newTotal = 0;
         let discount = 0;
         pList.forEach((item)=>{
@@ -44,7 +45,8 @@ const Sales = ()=>{
             
 
     }
-    const addItem = ()=>{   
+    const addItem = (e)=>{   
+        e.preventDefault();
         if(!setsForm.serial && !setsForm.qty && !setsForm.price)
         {
             setsForm({...sForm,total:total})
@@ -53,6 +55,11 @@ const Sales = ()=>{
         }
     };  
 
+    const removeItems = (data)=>{
+        console.log("From remove function",data);
+        const newLst = pList.filter((item)=>parseInt(item.serial) !== parseInt(data));
+        setPlist(newLst);
+    }
 
     const handleChange = (event)=>{
         const { name, value } = event.target;
@@ -128,7 +135,7 @@ const Sales = ()=>{
                                             <th>Action</th>
                                         </tr>
                                         <tbody>
-                                            <SalesList productList={pList}/>
+                                            <SalesList productList={pList} removeFunction={removeItems}/>
                                         </tbody>
                                     </table>
                                     <div className="tot">
