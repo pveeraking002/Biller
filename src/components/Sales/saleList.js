@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 
 const SalesList = (props)=>{
     const proList = props.productList.map((pro)=>{
-        return(
+        return( 
             <>
             <tr>
                 <td>{pro.serial}</td>
@@ -11,7 +11,8 @@ const SalesList = (props)=>{
                 <td>{pro.price}</td>
                 <td>{pro.dis}</td>
                 <td>{pro.total}</td>
-                <td><button style={{padding:"2px", border:"none", textAlign:"center"}}><i class='fa fa-trash' style={{color:"red"}}></i></button></td>
+                <td><button name = '1' style={{padding:"2px", border:"none", textAlign:"center"}}
+                onClick={(e)=>props.removeFunction(1)}><i class='fa fa-trash' style={{color:"red"}}></i></button></td>
             </tr>
             </>
         );
