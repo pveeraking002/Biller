@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import '../Sales/sales.css';
 import SalesList from "./saleList";
-import { getCustomerDetails }  from "../Customer/customer";
+import axios from "axios";
 
 
-const Sales = ()=>{
+
+const Sales = (props)=>{
     const [grossTotal,setGrossTotal] = useState(0);
     const [dis,setDiscount]= useState(0);
     const [netTotal,setNetTotal] = useState(0);
     const [igst,setIgest] = useState(0);
     const [pList,setPlist] = useState([]);
-    const [custDetail,setCusDetail] = useState(null);
-
+    const [custDetail,setCusDetail] = useState([]);
+    const userList = props.userList;
+    
     useEffect(()=>{ 
         let newTotal = 0;
         let discount = 0;
@@ -69,14 +71,20 @@ const Sales = ()=>{
     };
 
     const customerDetails = (e)=>{
-        e.preventDefault();
-        const data = getCustomerDetails(e.target.value);
-        if (data.length > 0)    
+        setCusDetail(null);
+        const data = userList.filter((item)=>{
+            if (item[e.target.name] === e.target.value){
+                return item[e.target.name];
+            }
+            else
+            {
+                return null;
+            }
+        });
+        if(data.length !=0)
         {
-           setCusDetail(data[0]);
-           console.log(custDetail);
+            setCusDetail(data[0]);
         }
-        
     }   
 
     const removeCustomerDetail = (e)=>{
@@ -93,13 +101,13 @@ const Sales = ()=>{
                 <div className="wcontainer">
                    <div className="entry">
                         <h4>Customer Information</h4>
-                        <input type="text" name="cusName" id="cusName" value={custDetail!== null ? custDetail.customerName:''}placeholder="Customer Name" />
+                        <input type="text" name="cusName" id="cusName" value={custDetail!== null ? custDetail.cname:''}placeholder="Customer Name" />
                         <input type="text" name="mobile" id="mobile" onInput={customerDetails} placeholder="Mobile"/>
                         <input type="text" name="email" value={custDetail!== null ? custDetail.email:''} id="email" placeholder="Email"/>
                         <input type="text" name="address" id="address" value={custDetail!== null ? custDetail.address:''} placeholder="Address"/>
                         <input type="text" name="company" id="company"  value={custDetail!== null ? custDetail.company:''} placeholder="Company"/>
-                        <button><i class='fa fa-search'></i></button>
-                        <button onClick={()=>removeCustomerDetail()}><i class='fa fa-trash'></i></button>
+                        <button className="addBtn"><i class='fa fa-plus'></i></button>
+                        <button className="eraseBtn" onClick={()=>removeCustomerDetail()}><i class='fa fa-trash'></i></button>
                         <br/>
 
                         <h4>Product Information</h4>

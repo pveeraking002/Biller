@@ -96,12 +96,14 @@
     background-color:var(--add-button);
     color:#fff;
 }
-.window .wcontainer .entry .btnGroup button:nth-child(2)
+.window .wcontainer .entry .btnGroup button:nth-child(2),
+.window .wcontainer .entry .eraseBtn
 {
     background-color:var(--delete-button);
     color:#fff;
-}
-.window .wcontainer .entry .btnGroup button:nth-child(3)
+}   
+.window .wcontainer .entry .btnGroup button:nth-child(3),
+.window .wcontainer .entry .addBtn
 {
     background-color:var(--print-button);
     color:#fff;
