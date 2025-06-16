@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import '../Customer/customer.css';
 import CustomerList from "./CustomerList";
-const userList = [
-        {"customerName":"veera", "mobile":"9688994268", "email":"p.veeraprince002@hotmail.com","address":"testarea","company":"nil","landMark":"co-oprative"},
-        {"customerName":"Tester", "mobile":"9688994265", "email":"p.veeraprince002@hotmail.com","address":"testarea","company":"nil","landMark":"co-oprative"}
-]
-const Customer = ()=>{
-    return(<>
+
+
+
+const Customer = (props)=>{
+    const userList = props.userList;
+    return(<>   
         <div className="customer">
             <div className="headerPart">
                 <div className="HeaderName">Customer Details</div>
@@ -24,11 +24,10 @@ const Customer = ()=>{
                <table>
                     <tr>
                         <th>CustomerName</th>
-                        <th>Mobile</th>
+                        <th>Mobile</th> 
                         <th>Email</th>
                         <th>Address</th>
                         <th>Company</th>
-                        <th>LankMark</th>
                         <th>Action</th>
                     </tr>  
                     <tbody>
@@ -50,11 +49,4 @@ const Customer = ()=>{
         </div>
     </>);
 }
-
-const getCustomerDetails=(data)=>
-{
-    const cdata = userList.filter((item)=> item.mobile === data);
-    return cdata;
-}
-
-export { Customer, getCustomerDetails }
+export default Customer

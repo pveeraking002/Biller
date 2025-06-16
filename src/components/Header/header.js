@@ -1,14 +1,23 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import '../Header/header.css'; 
-import { Customer } from "../Customer/customer";
+import Customer  from "../Customer/customer";
 import Sales from "../Sales/sales";
 import { Routes, Route, Link } from "react-router-dom"
 import { useLocation } from "react-router-dom";
+import axios from "axios";
 
 const Header = ()=>{
     const location = useLocation();
     const { pathname } = location;
     const splitpath = pathname.split("/");
+    const [userList,setUserList] = useState([]);
+    useEffect(()=>{
+            axios.get(`http://127.0.0.1:8000/getcustomers`)
+            .then((res)=>{
+                const cust = res.data.customers;
+                setUserList(cust);  
+            }).catch(()=>console.log("Network Error"));
+    },[]);
     return(
         <>
         <div className="mainArea">
@@ -42,8 +51,8 @@ const Header = ()=>{
                     <div className="eContainer">
                         <div className="action">
                             <Routes>
-                                <Route path="/" element={<Sales/>}/>
-                                <Route path="/customers" element={<Customer/>}/>
+                                <Route path="/" element={<Sales userList={userList}/>}/>
+                                <Route path="/customers" element={<Customer userList={userList}/>}/>
                             </Routes>
                         </div>
                     </div>
