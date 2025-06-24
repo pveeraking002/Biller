@@ -13,6 +13,21 @@ const Sales = (props)=>{
     const [pList,setPlist] = useState([]);
     const [custDetail,setCusDetail] = useState([]);
     const userList = props.userList;
+    const [pro,setPro] = useState([]);
+    const [subProduct,setSubProduct] = useState("");
+    useEffect(()=>{
+         axios.get(`http://127.0.0.1:8000/productlist`)
+         .then((res)=>{
+            if (res.status == 200)
+            {  
+               const product = res.data.data;
+               //console.log(product);
+               setPro(product)
+            
+            }
+        })
+         .catch(()=>{console.log("Found Error in getting the Product")})
+    },[]);
     
     useEffect(()=>{ 
         let newTotal = 0;
@@ -68,6 +83,9 @@ const Sales = (props)=>{
     const handleChange = (event)=>{
         const { name, value } = event.target;
         setsForm({...sForm,[name]:value});  
+        //console.log(event.target.value);
+        setSubProduct(event.target.value);
+        
     };
 
     const customerDetails = (e)=>{
@@ -90,8 +108,18 @@ const Sales = (props)=>{
     const removeCustomerDetail = (e)=>{
         setCusDetail(null);
     }
-  
     const total = calculateTotal(sForm.dis,sForm.qty,sForm.price);
+    const option = pro.map((item)=><option value={item.productName}>{item.productName}</option>);
+    const subOptions = pro.map(item=>{
+        //console.log(subProduct);
+        if(subProduct == item.productName)
+        {
+            return item.subProduct.map(sp=>{
+                //console.log(sp);
+                return <option value={sp}>{sp}</option>
+            });
+        }
+    });
     return(<>
         <div className="sales">
             <div className="headerPart">
@@ -114,13 +142,14 @@ const Sales = (props)=>{
                         <input type="text" name="serial" id="Serial" value={sForm.serial} onChange={handleChange} placeholder="Serial Number"/>
 
                         <select name="product" id="pname" value={sForm.product} onChange={handleChange}>
-                        <option value="someOption">Some option</option>
-                        <option value="otherOption">Other option</option>
+                            {
+                             option
+                            }
                         </select>
-
-                        <select value={sForm.subtype} onChange={handleChange} >
-                        <option value="someOption">Some option</option>
-                        <option value="otherOption">Other option</option>
+                        <select name="product" id="pname" value={sForm.product}>
+                            {
+                             subOptions
+                            }
                         </select>
                         <input type="text" name="qty" id="qty" value={sForm.qty} onChange={handleChange} placeholder="Qty"/>
                         <input type="text" name="price" id="price" value={sForm.price} onChange={handleChange}  placeholder="Price"/>
