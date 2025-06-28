@@ -11,10 +11,11 @@ const Sales = (props)=>{
     const [netTotal,setNetTotal] = useState(0);
     const [igst,setIgest] = useState(0);
     const [pList,setPlist] = useState([]);
-    const [custDetail,setCusDetail] = useState([]);
+    const [custDetail,setCusDetail] = useState({cname:'',email:'',address:'',company:''});
     const userList = props.userList;
     const [pro,setPro] = useState([]);
     const [subProduct,setSubProduct] = useState("");
+    const [sp,setSp] = useState(null);
     useEffect(()=>{
          axios.get(`http://127.0.0.1:8000/productlist`)
          .then((res)=>{
@@ -85,29 +86,57 @@ const Sales = (props)=>{
         setsForm({...sForm,[name]:value});  
         //console.log(event.target.value);
         setSubProduct(event.target.value);
-        
     };
 
-    const customerDetails = (e)=>{
-        setCusDetail(null);
-        const data = userList.filter((item)=>{
-            if (item[e.target.name] === e.target.value){
-                return item[e.target.name];
-            }
-            else
-            {
-                return null;
-            }
-        });
-        if(data.length !=0)
+    const serialProduct = async (e)=>{
+        setSp(null);
+        console.log(e.target.value);
+        if (e.target.value !== "")
         {
-            setCusDetail(data[0]);
+            const barcode = e.target.value;
+           const headerContent = {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            } 
+            const product = await axios.get(`http://127.0.0.1:8000/product/${barcode}`,{headers:headerContent});
+            //console.log(product.data); 
+            try{
+                setSp(product.data.product)   
+                
+            }catch(e)
+            {
+                console.log(e);
+            }
+        }
+    }
+    useEffect(()=>{
+        try
+        {
+            setsForm({...sForm,product:sp[0].productName});
+        }
+        catch(e)
+        {
+            setsForm({...sForm,product:'select the Product'});
+        }
+    },sp!==null);
+    //console.log(sp[0].productName);
+    const customerDetails = (e)=>{
+        setCusDetail({cname:'',email:'',address:'',company:'',mobile:e.target.value});
+        if (e.target.value !== '')
+        {
+            const lst = userList.filter((item)=>{
+                if(item[e.target.name]===e.target.value)
+                {
+                    setCusDetail(item);
+                }
+            }); 
         }
     }   
-
+    //console.log(custDetail);
     const removeCustomerDetail = (e)=>{
-        setCusDetail(null);
+        setCusDetail({cname:'',email:'',address:'',company:''});
     }
+
     const total = calculateTotal(sForm.dis,sForm.qty,sForm.price);
     const option = pro.map((item)=><option value={item.productName}>{item.productName}</option>);
     const subOptions = pro.map(item=>{
@@ -120,26 +149,44 @@ const Sales = (props)=>{
             });
         }
     });
+    const addCustomer = async()=>{
+        const head = {
+            'Content-Type': 'application/json'
+        }
+        console.log(custDetail);
+        const status = await axios.post(`http://127.0.0.1:8000/addcustomer/`,custDetail);
+        return status;
+    }
     return(<>
         <div className="sales">
             <div className="headerPart">
-                <div className="HeaderName">BILLING POINT</div>
+                <div className="HeaderName">BILLING POINT</div> 
             </div>
             <div className="window">
                 <div className="wcontainer">
                    <div className="entry">
                         <h4>Customer Information</h4>
-                        <input type="text" name="cusName" id="cusName" value={custDetail!== null ? custDetail.cname:''}placeholder="Customer Name" />
-                        <input type="text" name="mobile" id="mobile" onInput={customerDetails} placeholder="Mobile"/>
-                        <input type="text" name="email" value={custDetail!== null ? custDetail.email:''} id="email" placeholder="Email"/>
-                        <input type="text" name="address" id="address" value={custDetail!== null ? custDetail.address:''} placeholder="Address"/>
-                        <input type="text" name="company" id="company"  value={custDetail!== null ? custDetail.company:''} placeholder="Company"/>
-                        <button className="addBtn"><i class='fa fa-plus'></i></button>
+                        <input type="text" name="cname" id="cusName" value={custDetail.cname} 
+                        onChange={(e)=>setCusDetail({...custDetail,cname:e.target.value})}placeholder="Customer Name" />
+
+                        <input type="text" name="mobile" id="mobile" onBlur={customerDetails} 
+                        onChange={(e)=>setCusDetail({...custDetail,mobile:e.target.value})}placeholder="Mobile"/>
+
+                        <input type="text" name="email" value={custDetail.email} id="email" 
+                        onChange={(e)=>setCusDetail({...custDetail,email:e.target.value})}placeholder="Email"/>
+
+                        <input type="text" name="address" id="address" value={custDetail.address}
+                        onChange={(e)=>setCusDetail({...custDetail,address:e.target.value})} placeholder="Address"/>
+
+                        <input type="text" name="company" id="company"  value={custDetail.company} 
+                        onChange={(e)=>setCusDetail({...custDetail,company:e.target.value})} placeholder="Company"/>
+
+                        <button className="addBtn" onClick={addCustomer}><i class='fa fa-plus'></i></button>
                         <button className="eraseBtn" onClick={()=>removeCustomerDetail()}><i class='fa fa-trash'></i></button>
                         <br/>
 
                         <h4>Product Information</h4>
-                        <input type="text" name="serial" id="Serial" value={sForm.serial} onChange={handleChange} placeholder="Serial Number"/>
+                        <input type="text" name="serial" id="Serial" value={sForm.serial} onChange={handleChange} onBlur={serialProduct} placeholder="Serial Number"/>
 
                         <select name="product" id="pname" value={sForm.product} onChange={handleChange}>
                             {
