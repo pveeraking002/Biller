@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import '../Sales/sales.css';
 import SalesList from "./saleList";
 import axios from "axios";
-
-
+import { PDFViewer } from "@react-pdf/renderer";
+import Invoice from "../Invoice/invoice";
+import Header from "../Header/header";
 
 const Sales = (props)=>{
     const [grossTotal,setGrossTotal] = useState(0);
@@ -77,6 +78,7 @@ const Sales = (props)=>{
 
     const removeItems = (data)=>{
         //console.log("From remove function",data);
+        console.log(data);
         const newLst = pList.filter((item)=>parseInt(item.serial) !== parseInt(data));
         setPlist(newLst);
     }
@@ -157,6 +159,9 @@ const Sales = (props)=>{
         const status = await axios.post(`http://127.0.0.1:8000/addcustomer/`,custDetail);
         return status;
     }
+    const printProcess = ()=>{
+        window.print();
+    }
     return(<>
         <div className="sales">
             <div className="headerPart">
@@ -206,7 +211,7 @@ const Sales = (props)=>{
                         <div className="btnGroup">
                             <button onClick={addItem}><i class='fa fa-plus'></i></button>
                             <button><i class='fa fa-trash'></i></button>
-                            <button><i class='fa fa-print'></i></button>
+                            <button><i class='fa fa-print'onClick={printProcess}></i></button>
                         </div>
                         <br/>
                         <div className="billerInfo">

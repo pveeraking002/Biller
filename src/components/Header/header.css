@@ -62,22 +62,20 @@ li{
 .mainArea .navi header .hContainer ul li:hover,
 .mainArea .navi header .hContainer ul li:hover > a i
 {
-    background-color:#fff;
-    color:var(--bgcolor);
+    color:#fff;
     transition: .5s;
     opacity:.5;
 }
-.mainArea .navi header .hContainer ul a i 
+.mainArea .navi header .hContainer ul a 
 {
     padding:0;
     font-size: 1.8rem;
     color:#fff;
 }
-.mainArea .navi header .hContainer ul li.active,
-.mainArea .navi header .hContainer ul li.active > a i
+.mainArea .navi header .hContainer ul li.active 
 {
-    background-color:#fff;
-    color:var(--bgcolor);
+    background-color:#403f3d;
+    color:#403f3d;
 
 }
 
