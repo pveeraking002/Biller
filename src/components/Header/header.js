@@ -2,15 +2,29 @@ import React, { useState, useEffect } from "react";
 import '../Header/header.css'; 
 import Customer  from "../Customer/customer";
 import Sales from "../Sales/sales";
-import { Routes, Route, Link } from "react-router-dom"
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Header = ()=>{
+    const [user,setUser]= useState(null);
+    const navigate = useNavigate();
     const location = useLocation();
     const { pathname } = location;
     const splitpath = pathname.split("/");
+    const [content,setSelectedContent] = useState('sales');
     const [userList,setUserList] = useState([]);
+    useEffect(()=>{
+        if(user===null)
+        {
+            const userdata = localStorage.getItem("userToken");
+            console.log(userdata);
+            if(userdata!=="veera")
+            {
+                navigate("/")
+            }
+        }
+    });
     useEffect(()=>{
             axios.get(`http://127.0.0.1:8000/getcustomers`)
             .then((res)=>{
@@ -18,6 +32,21 @@ const Header = ()=>{
                 setUserList(cust);  
             }).catch(()=>console.log("Network Error"));
     },[]);
+    const renderContent = ()=>{
+        console.log(content)
+        switch(content)
+        {
+            case 'sales':
+                return (<Sales userList={userList}/>);
+            case 'customers':
+                return (<Customer userList={userList}/>);
+            case 'logout':
+                localStorage.removeItem("userToken");
+                navigate('/')
+            default:
+                return "content Not Found";
+        }
+    }
     return(
         <>
         <div className="mainArea">
@@ -26,14 +55,15 @@ const Header = ()=>{
                     <div className="brand"><i class="fa fa-home"></i></div>
                     <div className="hContainer">
                         <ul>
-                            <li className={splitpath[1]==="" ? "active":""}>
-                                <Link to="/"><i class="fa fa-bar-chart" aria-hidden="true"></i></Link>
+                            <li className={content==="sales" ? "active":""}>
+                                <a role="button" onClick={()=>{setSelectedContent('sales')}}><i class="fa fa-home" aria-hidden="true"></i></a>
                             </li>
-                            <li className={splitpath[1]==='/customer' ? "active":""}>
-                                <Link to="/customers"><i class="fa fa-address-book" aria-hidden="true"></i></Link>
+                            <li className={content==='customer' ? "active":""}>
+                                <a role="button" onClick={()=>{setSelectedContent('customers')}}><i class="fa fa-address-book" aria-hidden="true"></i></a>
                             </li>
                             <li><a href="#"><i class="fa fa-university" aria-hidden="true"></i></a></li>
                             <li><a href="#"><i class="fa fa-book" aria-hidden="true"></i></a></li>
+                            <li><a href="#" onClick={()=>{setSelectedContent('logout')}}><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
                         </ul>
                     </div>
                 </header>
@@ -50,10 +80,7 @@ const Header = ()=>{
                 <div className="entry">
                     <div className="eContainer">
                         <div className="action">
-                            <Routes>
-                                <Route path="/" element={<Sales userList={userList}/>}/>
-                                <Route path="/customers" element={<Customer userList={userList}/>}/>
-                            </Routes>
+                            {renderContent()}
                         </div>
                     </div>
                 </div>

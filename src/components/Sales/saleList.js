@@ -12,7 +12,7 @@ const SalesList = (props)=>{
                 <td>{pro.dis}</td>
                 <td>{pro.total}</td>
                 <td><button name = '1' style={{padding:"2px", border:"none", textAlign:"center"}}
-                onClick={(e)=>props.removeFunction(1)}><i class='fa fa-trash' style={{color:"red"}}></i></button></td>
+                onClick={(e)=>props.removeFunction(pro.serial)}><i class='fa fa-trash' style={{color:"red"}}></i></button></td>
             </tr>
             </>
         );
