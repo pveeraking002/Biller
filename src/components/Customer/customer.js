@@ -35,7 +35,7 @@ const Customer = (props)=>{
                     </tbody>
                </table>
             </div>
-            <div className="pagination">
+            <div className="pagination">    
                 <button>Prev</button>
                 <div id="pg">
                     <button className="active">1</button>
