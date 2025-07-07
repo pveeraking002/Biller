@@ -64,7 +64,6 @@ const Header = ()=>{
         <div className="mainArea">
             <div className="navi">
                 <header>
-                    <div className="brand"></div>
                     <div className="hContainer">
                         <ul>
                             <li className={content==="sales" ? "active":""}>
@@ -74,7 +73,7 @@ const Header = ()=>{
                                 <a role="button" onClick={()=>{setSelectedContent('customers')}}><i class="fa fa-address-book" aria-hidden="true"></i></a>
                             </li>
                             <li  className={content==='transaction' ? "active":""}>
-                                <a role="button" onClick={()=>{setSelectedContent('transaction')}}><i class="fa fa-university" aria-hidden="true"></i></a>
+                                <a role="button" onClick={()=>{setSelectedContent('transaction')}}><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
                             </li>
                             <li><a href="#"><i class="fa fa-book" aria-hidden="true"></i></a></li>
                             <li><a href="#" onClick={()=>{setSelectedContent('logout')}}><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
