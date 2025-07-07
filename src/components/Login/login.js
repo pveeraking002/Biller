@@ -14,7 +14,8 @@ const LoginPage =()=>
             setLogin(true);
             if(login)
             {
-                localStorage.setItem('userToken',"veera")
+                const userData = {username:"veera",user:'veerendrakumar'}
+                localStorage.setItem('userToken',JSON.stringify(userData));
                 console.log(localStorage.getItem('userToken'));
                 navigate("/main")
             }

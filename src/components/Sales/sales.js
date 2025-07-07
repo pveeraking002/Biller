@@ -185,12 +185,13 @@ const Sales = (props)=>{
 
                         <input type="text" name="company" id="company"  value={custDetail.company} 
                         onChange={(e)=>setCusDetail({...custDetail,company:e.target.value})} placeholder="Company"/>
-
-                        <button className="addBtn" onClick={addCustomer}><i class='fa fa-plus'></i></button>
-                        <button className="eraseBtn" onClick={()=>removeCustomerDetail()}><i class='fa fa-trash'></i></button>
+                        <div className="btnGp">
+                            <button className="addBtn" onClick={addCustomer}><i class='fa fa-plus'></i></button>
+                            <button className="eraseBtn" onClick={()=>removeCustomerDetail()}><i class='fa fa-trash'></i></button>
+                        </div>
                         <br/>
 
-                        <h4>Product Information</h4>
+                        <h4>Product Details</h4>
                         <input type="text" name="serial" id="Serial" value={sForm.serial} onChange={handleChange} onBlur={serialProduct} placeholder="Serial Number"/>
 
                         <select name="product" id="pname" value={sForm.product} onChange={handleChange}>
@@ -215,11 +216,20 @@ const Sales = (props)=>{
                         </div>
                         <br/>
                         <div className="billerInfo">
-                            <div className="head">BILLER INFORMATION</div>
+                            <div className="head">Biller Details</div>
                             <div className="container">
-                                <div className="bName">Biller Name : Veerendrakumar</div>
-                                <div className="bStart">Start Time : 00:00:00</div>
-                                <div className="brole">Role : Admin</div>
+                                <div className="t1">
+                                    <div className="val">50.</div>
+                                    <div className="dhead">Transactions</div>
+                                </div>
+                                <div className="t1">
+                                    <div className="val">50.</div>
+                                    <div className="dhead">Transactions</div>
+                                </div>
+                                <div className="t1">
+                                    <div className="val">50.</div>
+                                    <div className="dhead">Transactions</div>
+                                </div>
                             </div>
                         </div>
                    </div>
