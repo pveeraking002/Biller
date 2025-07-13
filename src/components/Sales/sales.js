@@ -17,6 +17,18 @@ const Sales = (props)=>{
     const [pro,setPro] = useState([]);
     const [subProduct,setSubProduct] = useState("");
     const [sp,setSp] = useState(null);
+    //alet message and button
+    const [alert,setAlert] = useState(["hidden",""]);
+    const [msg,setMsg] = useState("");
+
+    useEffect(()=>{
+        const intervalId = setInterval(()=>{
+            setMsg("");
+            setAlert(["hidden",""]);
+        },10000);
+        return () => clearInterval(intervalId);
+    },[])
+
     useEffect(()=>{
          axios.get(`http://127.0.0.1:8000/productlist`)
          .then((res)=>{
@@ -68,7 +80,7 @@ const Sales = (props)=>{
     }
     const addItem = (e)=>{   
         e.preventDefault();
-        if(!setsForm.serial && !setsForm.qty && !setsForm.price)
+        if(!setsForm.serial ==='' && !setsForm.qty==='' && !setsForm.price==='')
         {
             setsForm({...sForm,total:total})
             setPlist(pList=>[...pList,sForm]);
@@ -92,24 +104,26 @@ const Sales = (props)=>{
 
     const serialProduct = async (e)=>{
         setSp(null);
-        console.log(e.target.value);
-        if (e.target.value !== "")
-        {
-            const barcode = e.target.value;
-           const headerContent = {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            } 
-            const product = await axios.get(`http://127.0.0.1:8000/product/${barcode}`,{headers:headerContent});
-            //console.log(product.data); 
-            try{
-                setSp(product.data.product)   
-                
-            }catch(e)
+        try{
+        //console.log(e.target.value);
+            if (e.target.value !== "")
             {
-                console.log(e);
+                const barcode = e.target.value; 
+                const headerContent = {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                    } 
+                const product = await axios.get(`http://127.0.0.1:8000/product/${barcode}`,{headers:headerContent});
+                //console.log(product.data); 
+                    setSp(product.data.product)   
+                    
             }
+        }catch(e)
+        {
+            setAlert(["visible","darkred"]);
+            setMsg("Network Issue");
         }
+        
     }
     useEffect(()=>{
         try
@@ -152,17 +166,32 @@ const Sales = (props)=>{
         }
     });
     const addCustomer = async()=>{
-        const head = {
-            'Content-Type': 'application/json'
+        try
+        {
+            const head = {
+                'Content-Type': 'application/json'
+            }
+            console.log(custDetail);
+            const status = await axios.post(`http://127.0.0.1:8000/addcustomer/`,custDetail);
+            return status;
         }
-        console.log(custDetail);
-        const status = await axios.post(`http://127.0.0.1:8000/addcustomer/`,custDetail);
-        return status;
+        catch(e)
+        {
+          setAlert(["visible","darkred"]);  
+          setMsg("Network Issue");  
+        }
+        
     }
     const printProcess = ()=>{
         window.print();
     }
     return(<>
+        <div className="alert" style={{visibility:alert[0], backgroundColor:alert[1]}}>
+            <div className="msg">
+                {msg}
+            </div>
+            <div className="cls" onClick={()=>{setAlert(["hidden",""])}}>X</div>
+        </div>
         <div className="sales">
             <div className="headerPart">
                 <div className="HeaderName">BILLING POINT</div> 

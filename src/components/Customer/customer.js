@@ -23,6 +23,7 @@ const Customer = (props)=>{
             <div className="data">
                <table>
                     <tr>
+                        <th>Initals</th>
                         <th>CustomerName</th>
                         <th>Mobile</th> 
                         <th>Email</th>

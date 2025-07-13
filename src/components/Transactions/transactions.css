@@ -1,0 +1,135 @@
+:root
+{
+    --header-bg-color:#edeafb;
+    --button-bg-color:#403f3d;
+    --pagination-bgcolor : #6264A7;
+    --add-btn-color:#04AA6D;
+    --search-color:#2196F3;
+}
+
+.customer .content
+{
+    background-color: #f8f8f8;
+    width:100%;
+    margin:20px auto 0 auto;
+    height:85vh;
+    max-height: 80vh;
+    position: relative;
+    overflow:auto;
+}
+
+.customer .content .grid 
+{
+    padding:20px;
+    max-width:80%;
+    margin: 0 auto;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+ 
+}
+.customer .content .grid .p1
+{
+    width:300px;
+    background-color: #f2f2f2;
+    padding:10px;
+    margin:auto auto;
+    display: flex;
+    flex-direction:column;
+    border-radius:5px;
+    border:1px solid silver;
+}
+.customer .content .grid .p1 .icon
+{
+    background-color: #403f3d;
+    padding:10px;
+    font-size: 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap:20px;
+    color:#fff;
+}
+.customer .content .grid .p1 .icon .invoice
+{
+    font-size:1rem;
+}
+.customer .content .grid .p1 .trans
+{
+    background-color: #f2f2f2;
+    width:100%;
+    height:100%;
+    padding:10px;
+    color:#403f3d;
+    font-size:.8rem;
+}
+.customer .content .grid .p1 .trans .tcon
+{
+    display: flex;
+    flex-direction: column;
+    gap:5px;
+    justify-content: flex-start;
+}
+.customer .content .grid .p1 .trans .tcon button 
+{
+    margin-top:5px;
+    padding:5px; 
+    border:none;
+    background-color:silver;
+    color:#fff;
+}
+.customer .content .grid .p1:hover 
+{
+    background-color:rgba(0,0,0,0.1);
+    transition:.2s all;
+}
+.customer .content .grid .p1 .trans .tcon button:hover 
+{
+    cursor:pointer;
+}
+
+.customer .search
+{
+    background-color:var(--header-bg-color);
+    width:100%;
+    height:auto;
+    padding:10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap:20px;    
+}
+.customer .search .bcontent 
+{
+    display: flex;
+    flex-direction: row;
+    gap:20px;
+}
+.customer .search .bcontent  input 
+{
+    width:200px;
+    height:30px;
+    padding:10px;
+    border:none;
+}
+
+
+/* Invoice  */
+.invoicePdf
+{
+    width:100%;
+    height:100%;
+    background-color: #f8f8f8;
+    position: absolute;
+    top:0;
+    left:0;
+    z-index:500;
+
+}
+.printBtn
+{
+    padding:10px 50px;
+    font-size:1.2rem;
+    border:none;
+}

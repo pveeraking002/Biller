@@ -1,7 +1,7 @@
 
-import React, { Fragment } from "react"
+import React, { Fragment, useCallback, useMemo, useRef } from "react"
 import { Image, Text, View, Page, Document, StyleSheet } from '@react-pdf/renderer';
-
+import { PDFViewer } from "@react-pdf/renderer";
 
     const Invoice = () => {
 
@@ -166,20 +166,25 @@ import { Image, Text, View, Page, Document, StyleSheet } from '@react-pdf/render
                 </View>
             </View>
         );
+        const documentRender =()=>{
+            return(<>
+                 <Document>
+                    <Page size="A4" style={styles.page}>
+                        <InvoiceTitle/>
+                        <Address/>
+                        <UserAddress/>
+                        <TableHead/>
+                        <TableBody/>
+                        <TableTotal/>
+                    
+                    </Page>
+                </Document>      
+            </>);
+        }
         return (
-            <>
-            <Document>
-                <Page size="A4" style={styles.page}>
-                    <InvoiceTitle/>
-                    <Address/>
-                      <UserAddress/>
-                      <TableHead/>
-                      <TableBody/>
-                      <TableTotal/>
-                   
-                </Page>
-            </Document>      
-            </>
+           <PDFViewer key={new Date()} style={{ width: '100%', height: '100%' }}>
+                {documentRender()}
+            </PDFViewer>
         );
     }
 export default Invoice

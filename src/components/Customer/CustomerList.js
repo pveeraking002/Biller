@@ -1,10 +1,12 @@
 import React from "react";
 import '../Customer/customerList.css';
+import CustomerAvatarFunc from "./customerAvatar";
 
 const CustomerList = (props)=>{
      const cList = props.customers.map((cus)=>{
         return(
             <tr>
+                <td><div>{<CustomerAvatarFunc firstname={cus.cname}/>}</div></td>
                 <td>{cus.cname}</td>
                 <td>{cus.mobile}</td>
                 <td>{cus.email}</td>

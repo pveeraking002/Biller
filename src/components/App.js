@@ -1,5 +1,4 @@
 
-import { PDFViewer } from "@react-pdf/renderer";
 import Header from "./Header/header";
 import { Routes, Route } from "react-router-dom";
 import LoginPage from "./Login/login";
