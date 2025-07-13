@@ -3,6 +3,8 @@
     --header-bg-color:#edeafb;
     --button-bg-color:#403f3d;
     --pagination-bgcolor : #6264A7;
+    --add-btn-color:#04AA6D;
+    --search-color:#2196F3;
 }
 .customer
 {
@@ -27,11 +29,21 @@
     border:1px solid #f2f2f2;
 }
 
-.btn
+.btn:nth-child(1)
 {
+    background-color: var(--add-btn-color);
     padding:10px 40px;
     height:40px;
     border:none;
+    color:#f8f8f8;
+}
+.btn:nth-child(2)
+{
+    background-color: var(--search-color);
+    padding:10px 40px;
+    height:40px;
+    border:none;
+    color:#f8f8f8;
 }
 .btn:hover 
 {
@@ -54,8 +66,10 @@
 .customer .data table th,
 .customer .data table td
 {
-    padding:10px;
+    padding:8px;
     text-align: left;
+    font-weight:500;
+    font-size:.8rem;
 }
 .customer .data table th
 {  
@@ -63,10 +77,10 @@
     background-color:#f5f5f5;
 }
 .customer .data table td
-{
-    font-size: .9rem;
-    font-weight:400;
-   
+{   
+    font-weight:200;
+    font-size:.8rem;
+
 }
 
 .customer .data table tr:nth-child(even)
@@ -100,7 +114,7 @@
     border:none;
     background-color: silver;
     color:#403f3d;
-    font-weight: bold;
+    font-weight: 400;
 }
 .customer .pagination  button:hover 
 {

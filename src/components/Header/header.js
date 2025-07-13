@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 const Header = ()=>{
     const [user,setUser]= useState(null);
     const navigate = useNavigate();
-    const [content,setSelectedContent] = useState('sales');
+    const [content,setSelectedContent] = useState('transaction');
     const [userList,setUserList] = useState([]);
     const [currTime,setCurrTime]= useState(new Date());
     useEffect(()=>{
@@ -84,12 +84,9 @@ const Header = ()=>{
             <div className="content">
                 <div className="titleCard">
                     <div className="tContainer">
-                        <div className="brand"><img src=""/></div>
-                        <br/>
                         <div className="username">Welcome! {user}</div>
-                        <div className="username">{currTime.toLocaleTimeString()}</div>
-                        <div className="username">{currTime.toLocaleDateString()}</div>
-                        <br/>
+                        <div className="username">Time : {currTime.toLocaleTimeString()}</div>
+                        <div className="username">Date : {currTime.toLocaleDateString()}</div>
                         <div className="burger"><i class='fa fa-bars'>&nbsp; &nbsp;Menu</i></div>
                     </div>
                 </div>

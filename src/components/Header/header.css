@@ -110,9 +110,9 @@ li{
 }
 .mainArea .content .titleCard .tContainer .username
 {
-    font-size: 1.1rem;
+    font-size: .9rem;
     color:#fff;
-    font-weight:400;
+    font-weight:200;
 }
 
 /*Entry Area*/
