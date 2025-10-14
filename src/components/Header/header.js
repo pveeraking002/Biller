@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 const Header = ()=>{
     const [user,setUser]= useState(null);
     const navigate = useNavigate();
-    const [content,setSelectedContent] = useState('transaction');
+    const [content,setSelectedContent] = useState('sales');
     const [userList,setUserList] = useState([]);
     const [currTime,setCurrTime]= useState(new Date());
     useEffect(()=>{

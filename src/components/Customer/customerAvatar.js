@@ -8,7 +8,7 @@ export default function CustomerAvatarFunc({firstname,lastname,size=100, bgColor
 
         initials =firstname[0].toUpperCase() + firstname[1].toUpperCase();
         const first = "#43" + data[initials[1].toUpperCase().toString()] + "f3d";
-        console.log(first);
+        //console.log(first);
         //console.log(data[firstname[0].toUpperCase().toString()] + data[firstname[1].toUpperCase().toString()]);   
         bgColor = first;
     }

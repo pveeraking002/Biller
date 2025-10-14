@@ -1,47 +1,27 @@
-
-import React, { Fragment, useCallback, useMemo, useRef } from "react"
+import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { Image, Text, View, Page, Document, StyleSheet } from '@react-pdf/renderer';
 import { PDFViewer } from "@react-pdf/renderer";
+import axios from "axios";
 
-    const Invoice = () => {
-
+    const Invoice = (props) => {
+        const inv = props.data;
         const reciept_data = {  
             "id": "642be0b4bbe5d71a5341dfb1",
-            "invoice_no": "20200669",
-            "address": "739 Porter Avenue, Cade, Missouri, 1134",
-            "date": "24-09-2019",
-            "items": [
-            {
-                "id": 1,
-                "desc": "do ex anim quis velit excepteur non",
-                "qty": 8,
-                "price": 179.25
-            },
-            {
-                "id": 2,
-                "desc": "incididunt cillum fugiat aliqua Lorem sit Lorem",
-                "qty": 9,
-                "price": 107.78
-            },
-            {
-                "id": 3,
-                "desc": "quis Lorem ad laboris proident aliqua laborum",
-                "qty": 4,
-                "price": 181.62
-            },
-            {
-                "id": 4,
-                "desc": "exercitation non do eu ea ullamco cillum",
-                "qty": 4,
-                "price": 604.55
-            },
-            {
-                "id": 5,
-                "desc": "ea nisi non excepteur irure Lorem voluptate",
-                "qty": 6,
-                "price": 687.08
-            }
-            ]
+            "invoice_no":inv[0].createdDate,
+            "address":inv[0].customer.data.address + ", Muhavoor",
+            "date": inv[0].createdDate,
+            "items":
+                inv.map(element => {
+                    return(
+                         {
+                            "id": element.customerId,
+                            "desc":element.customerId, 
+                            "qty":element.qty,
+                            "price":element.price
+                        }
+                    );
+                })
+            
         };
         const styles = StyleSheet.create({
         // update Invoice styles here 
@@ -89,9 +69,7 @@ import { PDFViewer } from "@react-pdf/renderer";
                         <Text style={styles.invoiceNumber}>Invoice number: {reciept_data.invoice_no} </Text>
                     </View>
                     <View>
-                        <Text style={styles.addressTitle}>7, Ademola Odede, </Text>
-                        <Text style={styles.addressTitle}>Ikeja,</Text>
-                        <Text style={styles.addressTitle}>Lagos, Nigeria.</Text>
+                        <Text style={styles.addressTitle}>{reciept_data.address} </Text>
                     </View>
                 </View>
             </View>
@@ -129,7 +107,7 @@ import { PDFViewer } from "@react-pdf/renderer";
             </View>
         );
         const TableBody = () => (
-           reciept_data.items.map((receipt)=>(
+           reciept_data.items.map((receipt)=>(     
             <Fragment key={receipt.id}>
                 <View style={{ width:'100%', flexDirection :'row'}}>
                     <View style={[styles.tbody, styles.tbody2]}>
