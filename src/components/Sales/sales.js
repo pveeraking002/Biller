@@ -20,7 +20,7 @@ const Sales = (props)=>{
     //alet message and button
     const [alert,setAlert] = useState(["hidden",""]);
     const [msg,setMsg] = useState("");
-
+    const [tDetails,settDetails] = useState({createdDate:'',customerId:0, productName:'', qty:0, price:0, gross:0, discount:0, net:0, createdBy:''});
     useEffect(()=>{
         const intervalId = setInterval(()=>{
             setMsg("");
@@ -182,8 +182,15 @@ const Sales = (props)=>{
         }
         
     }
-    const printProcess = ()=>{
-        window.print();
+    const printProcess = async()=>{
+       console.log("Calling the printprocess function");
+       try{
+            console.log(tDetails);
+            const transactionDetails = await axios.post(`http://127.0.0.1:8000/transaction/`,tDetails);
+            console.log(transactionDetails);
+       }catch(e){console.log(e)}
+       //const status = await axios.post(`http://127.0.0.1:8000/transaction/`);
+       //return status;
     }
     return(<>
         <div className="alert" style={{visibility:alert[0], backgroundColor:alert[1]}}>
@@ -223,7 +230,7 @@ const Sales = (props)=>{
                         <h4>Product Details</h4>
                         <input type="text" name="serial" id="Serial" value={sForm.serial} onChange={handleChange} onBlur={serialProduct} placeholder="Serial Number"/>
 
-                        <select name="product" id="pname" value={sForm.product} onChange={handleChange}>
+                        <select name="product" id="pname" value={sForm.product} onChange={handleChange}><option value="">Select Product</option>
                             {
                              option
                             }
